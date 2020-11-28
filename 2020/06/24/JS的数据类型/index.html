@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>从JS的数据类型到深拷贝 | danny's blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">从JS的数据类型到深拷贝</h1><a id="logo" href="/.">danny's blog</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">从JS的数据类型到深拷贝</h1><div class="post-meta">2020-06-24<span> | </span><span class="category"><a href="/categories/ECMAScript/">ECMAScript</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">JS的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">基本类型与引用类型的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">判断数据类型的方法</span></a></li></ol></li></ol></div></div><div class="post-content"><h1 id="JS的数据类型"><a href="#JS的数据类型" class="headerlink" title="JS的数据类型"></a>JS的数据类型</h1><ul>
+<li>基本类型（值类型或原始类型）<br>Undefined、Null、Boolean、Number、String、Symbol(ES6)</li>
+<li>引用类型<br>Object (包括 Boolean、Number、String、Array、Function、Date、RegExp等)</li>
+</ul>
+<h2 id="基本类型与引用类型的区别"><a href="#基本类型与引用类型的区别" class="headerlink" title="基本类型与引用类型的区别"></a>基本类型与引用类型的区别</h2><ul>
+<li>存储位置不同<br>原始值保存在栈内存中，一旦给定不可修改，数据会永久保存，除非空间不足，会覆盖。<br>引用值保存在堆内存中，在栈内存中保存着指向该变量对象的指针。  </li>
+<li>赋值方式不同<br>将一个原始类型的变量赋值给另一个变量，会创建这个值的副本；<br>给变量重新赋原始值会在栈内存中重新开辟一块新的空间。<br>将一个引用类型的变量赋值给另一个变量，会创建另一个指向该对象的指针；<br>给变量重新赋引用值会在堆内存中重新开辟一块新的空间，并在栈内存中开辟新的空间建立新的地址引用。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>是否和原数据指向同一对象</th>
+<th>第一层数据为基本类型</th>
+<th>原数据中包含子对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>赋值</td>
+<td>是</td>
+<td>改变会使原数据一同改变</td>
+<td>改变会使原数据一同改变</td>
+</tr>
+<tr>
+<td>浅拷贝</td>
+<td>否</td>
+<td>改变不会使原数据一同改变</td>
+<td>改变会使原数据一同改变</td>
+</tr>
+<tr>
+<td>深拷贝</td>
+<td>否</td>
+<td>改变不会使原数据一同改变</td>
+<td>改变不会使原数据一同改变</td>
+</tr>
+</tbody></table>
+<ul>
+<li>浅拷贝<br>浅拷贝<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clone</span>(<span class="params">origin</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// origin的类型</span></span><br><span class="line">  <span class="keyword">var</span> type = <span class="built_in">Object</span>.prototype.toString.call(origin),</span><br><span class="line">    tar;</span><br><span class="line">  <span class="comment">//只拷贝对象或数组 </span></span><br><span class="line">  <span class="keyword">if</span> (type === <span class="string">&#x27;[object Object]&#x27;</span> || type === <span class="string">&#x27;[object Array]&#x27;</span>) &#123;</span><br><span class="line">    tar = type === <span class="string">&#x27;[object Object]&#x27;</span> ? &#123;&#125; : [];</span><br><span class="line">    <span class="comment">// 遍历origin</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> origin) &#123;</span><br><span class="line">      <span class="comment">//排除自定义的原型上的属性</span></span><br><span class="line">      <span class="keyword">if</span> (origin.hasOwnProperty(key)) &#123;  </span><br><span class="line">        tar[key] = origin[key];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tar;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>数组常用的浅拷贝的方法：<code>slice</code>, <code>concat</code>, <code>Array.from()</code>, ES6的<code>...</code>扩展运算符, 数组解构  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原数组arr, 新数组arr1</span></span><br><span class="line"><span class="keyword">var</span> arr1 = arr.slice(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> arr1 = arr.slice();</span><br><span class="line"><span class="keyword">var</span> arr1 = arr.concat([]);</span><br><span class="line"><span class="keyword">var</span> arr1 = arr.concat();</span><br><span class="line"><span class="keyword">var</span> arr1 = [...arr];</span><br></pre></td></tr></table></figure>
+
+<p>对象常用的浅拷贝的方法：<code>Object.assign()</code>, 对象解构  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原对象obj, 新对象obj1</span></span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>函数的参数传递是按值传递的，同赋值一样。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, [<span class="number">4</span>, <span class="number">5</span>]];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">array</span>) </span>&#123;      </span><br><span class="line">  array[<span class="number">3</span>] = [<span class="number">4</span>];</span><br><span class="line">&#125;</span><br><span class="line">test(arr);</span><br><span class="line"><span class="built_in">console</span>.log(arr);  <span class="comment">//[1, 2, 3, [4]]</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li>注意区分引用值的重写与修改<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, [<span class="number">4</span>, <span class="number">5</span>]];</span><br><span class="line"><span class="comment">//浅拷贝</span></span><br><span class="line"><span class="keyword">var</span> arr1 = arr.slice();</span><br><span class="line"><span class="comment">//修改</span></span><br><span class="line">arr1[<span class="number">3</span>][<span class="number">1</span>] = <span class="number">4</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr, arr1);  </span><br><span class="line"><span class="comment">//arr [1, 2, 3, [4]]</span></span><br><span class="line"><span class="comment">//arr1 [1, 2, 3, [4]]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<pre><code class="JavaScript">var arr = [1, 2, 3, [4, 5]];
+//浅拷贝
+var arr1 = arr.slice();   
+//重写
+arr1[3] = [4];
+console.log(arr, arr1);
+//arr [1, 2, 3, [4, 5]]
+//arr1 [1, 2, 3, [4]]</code></pre>
+<ul>
+<li>原始值没有属性和方法；引用值有属性和方法</li>
+</ul>
+<h2 id="判断数据类型的方法"><a href="#判断数据类型的方法" class="headerlink" title="判断数据类型的方法"></a>判断数据类型的方法</h2></div><div class="tags"><a href="/tags/JS%E5%9F%BA%E7%A1%80/"><i class="fa fa-tag"></i>JS基础</a></div><div class="post-nav"><a class="pre" href="/2020/06/28/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E3%80%81%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E9%97%AD%E5%8C%85%E6%B7%B1%E5%85%A5/">立即执行函数、逗号运算符、闭包</a></div><div id="container"></div><link rel="stylesheet" type="text/css" href="//unpkg.com/gitalk/dist/gitalk.css?v=0.0.0"><script type="text/javascript" src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js?v=0.0.0"></script><script type="text/javascript" src="//unpkg.com/gitalk/dist/gitalk.min.js?v=0.0.0"></script><script>var gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: md5(location.pathname),
+  distractionFreeMode: false
+})
+gitalk.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ECMAScript/">ECMAScript</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/JS%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">JS基础</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/GitHub+Hexo/">GitHub+Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/28/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E3%80%81%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E9%97%AD%E5%8C%85%E6%B7%B1%E5%85%A5/">立即执行函数、逗号运算符、闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/24/JS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">从JS的数据类型到深拷贝</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">danny's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" color="0,0,0" opacity="0.5" zIndex="-2" count="50" src="//cdn.jsdelivr.net/npm/canvas-nest.js/dist/canvas-nest.min.js"></script><script type="text/javascript" src="/js/love.js"></script><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
