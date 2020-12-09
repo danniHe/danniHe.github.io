@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>SQL数据分析入门 | danny's blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SQL数据分析入门</h1><a id="logo" href="/.">danny's blog</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SQL数据分析入门</h1><div class="post-meta">2020-12-05<span> | </span><span class="category"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">SQL的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E5%BF%85%E9%A1%BB%E8%A6%81%E6%8E%8C%E6%8F%A1%E7%9A%84%E8%AF%AD%E6%B3%95%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">SQL必须要掌握的语法知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%9F%BA%E6%9C%AC"><span class="toc-number">2.1.</span> <span class="toc-text">最基本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="toc-number">2.2.</span> <span class="toc-text">最常用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6"><span class="toc-number">2.3.</span> <span class="toc-text">基础进阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">应用</span></a></li></ol></div></div><div class="post-content"><h2 id="SQL的基本概念"><a href="#SQL的基本概念" class="headerlink" title="SQL的基本概念"></a>SQL的基本概念</h2><ul>
+<li>SQL: Structured Query Language，结构化查询语言，用于访问与处理数据库的标准的计算机语言。</li>
+<li>数据库程序有：MS Access、DB2、MS SQL Server、MySQL、Oracle、Informix、Sybase等。</li>
+<li>SQL对大小写不敏感。</li>
+<li>SQL的功能（增删改查、分组、聚合、排序、去重）<ul>
+<li>创建新的数据库、表、存储过程、视图</li>
+<li>删除记录</li>
+<li>插入新的记录、更新数据</li>
+<li>查询</li>
+<li>设置表、存储过程和视图的权限</li>
+</ul>
+</li>
+<li>SQL：数据操作语言DML + 数据定义语言DDL<ul>
+<li>DML: 插入、删除、更新与查询指令。<ol>
+<li>insert into</li>
+<li>delete</li>
+<li>update</li>
+<li>select</li>
+</ol>
+</li>
+<li>DDL: 创建或删除表格，定义索引键，规定表之间的链接，以及施加表的约束。<ol>
+<li>create database  创建新数据库</li>
+<li>alter database  修改数据库</li>
+<li>create table  创建新数据表</li>
+<li>alter table  变更数据表</li>
+<li>drop table  删除数据表</li>
+<li>create index  创建索引</li>
+<li>drop index  删除索引</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="SQL必须要掌握的语法知识"><a href="#SQL必须要掌握的语法知识" class="headerlink" title="SQL必须要掌握的语法知识"></a>SQL必须要掌握的语法知识</h2><h3 id="最基本"><a href="#最基本" class="headerlink" title="最基本"></a>最基本</h3><ul>
+<li>选择：select</li>
+<li>连接：join/ left join/ right join/ union<h3 id="最常用"><a href="#最常用" class="headerlink" title="最常用"></a>最常用</h3></li>
+<li>去重：distinct</li>
+<li>筛选：having/ where</li>
+<li>聚合：max/ min/ sum/ count + group by</li>
+<li>排序：order by/ sort by</li>
+<li>条件：cse when… end</li>
+<li>字符串：substr/ concat/ split<h3 id="基础进阶"><a href="#基础进阶" class="headerlink" title="基础进阶"></a>基础进阶</h3></li>
+<li>日期函数：to_date/ datediff</li>
+<li>分组排序：row_number()</li>
+<li>取百分比：percentile</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2></div><div class="tags"><a href="/tags/SQL%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%BA%94%E7%94%A8/"><i class="fa fa-tag"></i>SQL基础及应用</a></div><div class="post-nav"><a class="pre" href="/2020/12/07/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E9%87%91%E8%9E%8D%E8%A1%8C%E4%B8%9A/">数据分析之金融行业</a><a class="next" href="/2020/12/05/sql-test/">数据分析SQL项目实战</a></div><div id="container"></div><link rel="stylesheet" type="text/css" href="//unpkg.com/gitalk/dist/gitalk.css?v=0.0.0"><script type="text/javascript" src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js?v=0.0.0"></script><script type="text/javascript" src="//unpkg.com/gitalk/dist/gitalk.min.js?v=0.0.0"></script><script>var gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: md5(location.pathname),
+  distractionFreeMode: false
+})
+gitalk.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ECMAScript/">ECMAScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/">人生感悟</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/JS%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">JS基础</a> <a href="/tags/SQL%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%BA%94%E7%94%A8/" style="font-size: 15px;">SQL基础及应用</a> <a href="/tags/%E5%AE%89%E8%A3%85mysql-server/" style="font-size: 15px;">安装mysql server</a> <a href="/tags/%E5%AE%89%E8%A3%85navicat/" style="font-size: 15px;">安装navicat</a> <a href="/tags/SQL%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" style="font-size: 15px;">SQL项目实战</a> <a href="/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" style="font-size: 15px;">职业规划</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E9%87%91%E8%9E%8D%E8%A1%8C%E4%B8%9A/">数据分析之金融行业</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/sql/">SQL数据分析入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/sql-test/">数据分析SQL项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/GitHub+Hexo/">GitHub+Hexo 搭建个人博客网站</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/28/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E3%80%81%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E9%97%AD%E5%8C%85%E6%B7%B1%E5%85%A5/">立即执行函数、逗号运算符、闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/24/JS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">从JS的数据类型到深拷贝</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">danny's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" color="0,0,0" opacity="0.5" zIndex="-2" count="50" src="//cdn.jsdelivr.net/npm/canvas-nest.js/dist/canvas-nest.min.js"></script><script type="text/javascript" src="/js/love.js"></script><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
